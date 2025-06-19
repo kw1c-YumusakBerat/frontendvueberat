@@ -6,8 +6,6 @@
         <div class="caption">{{ slide.title }}</div>
       </div>
     </div>
-    <button @click="prev" class="nav prev">‹</button>
-    <button @click="next" class="nav next">›</button>
   </div>
 </template>
 
@@ -17,26 +15,32 @@ export default {
     slides: {
       type: Array,
       required: true,
+      default: () => [],  // fallback, mocht de prop niet komen
     }
   },
   data() {
     return {
       currentIndex: 0,
+      interval: null,
     }
   },
   methods: {
     next() {
-      this.currentIndex = (this.currentIndex + 1) % this.slides.length
+      if (this.slides && this.slides.length > 0) {
+        this.currentIndex = (this.currentIndex + 1) % this.slides.length;
+      }
     },
     prev() {
-      this.currentIndex = (this.currentIndex - 1 + this.slides.length) % this.slides.length
+      if (this.slides && this.slides.length > 0) {
+        this.currentIndex = (this.currentIndex - 1 + this.slides.length) % this.slides.length;
+      }
     },
   },
   mounted() {
-    this.interval = setInterval(this.next, 5000)
+    this.interval = setInterval(this.next, 5000);
   },
   beforeUnmount() {
-    clearInterval(this.interval)
+    clearInterval(this.interval);
   },
 }
 </script>
@@ -70,23 +74,5 @@ export default {
   background: rgba(0,0,0,0.5);
   padding: 0.3rem 0.7rem;
   border-radius: 4px;
-}
-.nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.3);
-  border: none;
-  color: white;
-  font-size: 2rem;
-  padding: 0 0.5rem;
-  cursor: pointer;
-  user-select: none;
-}
-.prev {
-  left: 10px;
-}
-.next {
-  right: 10px;
 }
 </style>

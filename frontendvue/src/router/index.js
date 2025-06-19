@@ -6,6 +6,7 @@ import Producten from '../views/Producten.vue'
 import Nieuws from '../views/News.vue'
 import Contact from '../views/Contact.vue'
 import NewsDetail from '../views/NewsDetail.vue'
+import OnePager from '../views/OnePager.vue'
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
@@ -14,6 +15,7 @@ const routes = [
   { path: '/nieuws', name: 'Nieuws', component: Nieuws },
   { path: '/nieuws/:id', name: 'NewsDetail', component: NewsDetail, props: true },
   { path: '/contact', name: 'Contact', component: Contact },
+  { path: '/onepager', name: 'OnePager', component: OnePager },  // extra route, altijd te bezoeken
 ]
 
 const router = createRouter({

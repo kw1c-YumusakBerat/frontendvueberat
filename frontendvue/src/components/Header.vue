@@ -49,4 +49,10 @@ a {
 .router-link-active {
   color: #ff4d00;
 }
+
+@media (max-width: 768px) {
+  nav {
+    display: none !important;
+  }
+}
 </style>

@@ -9,9 +9,9 @@
 </template>
 
 <script>
-import Slider from '../components/Slider.vue'
-import NewsBlock from '../components/NewsBlock.vue'
-import games from '../data/games'  // Importeer je games data
+import Slider from '../components/Slider.vue';
+import NewsBlock from '../components/NewsBlock.vue';
+import games from '../data/games';
 
 export default {
   components: { Slider, NewsBlock },
@@ -25,12 +25,11 @@ export default {
     }
   },
   computed: {
-    // Maak een array met objecten die Slider verwacht (image + title)
     gamesSlides() {
       return games.map(game => ({
         image: game.url_img,
         title: game.naam,
-      }))
+      }));
     }
   }
 }
