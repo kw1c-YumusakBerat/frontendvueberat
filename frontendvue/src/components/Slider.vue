@@ -15,7 +15,7 @@ export default {
     slides: {
       type: Array,
       required: true,
-      default: () => [],  // fallback, mocht de prop niet komen
+      default: () => [], 
     }
   },
   data() {
