@@ -1,3 +1,6 @@
+@use "sass:color";
+
+
 // Kleuren gebaseerd op logo
 $color-primary: #24364c;   // Donkerblauw
 $color-accent: #ff4d00;    // Fel oranje
@@ -28,8 +31,9 @@ button {
 }
 
 button:hover {
-  background-color: darken($color-accent, 10%);
+  background-color: color.adjust($color-accent, $lightness: -10%);
 }
+
 
 // Content blokken (zoals kaarten of secties)
 .section {

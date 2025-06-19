@@ -2,18 +2,18 @@
   <section class="producten">
     <h1>Onze Spellen</h1>
     <div class="grid">
-      <div v-for="game in games" :key="game.id" class="card">
-        <img :src="game.image" :alt="game.name" @error="handleImgError" />
-        <h2>{{ game.name }}</h2>
+      <div v-for="(game, index) in games" :key="index" class="card">
+        <img :src="game.url_img" :alt="game.naam" @error="handleImgError" />
+        <h2>{{ game.naam }}</h2>
         <p><strong>Genre:</strong> {{ game.genre }}</p>
-        <p><strong>Uitgever:</strong> {{ game.publisher }}</p>
+        <p><strong>Uitgever:</strong> {{ game.uitgever }}</p>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import games from '../data/games.js'
+import games from '../data/games'
 
 export default {
   data() {
@@ -28,6 +28,7 @@ export default {
   },
 }
 </script>
+
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
