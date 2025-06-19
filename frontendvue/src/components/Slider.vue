@@ -13,14 +13,15 @@
 
 <script>
 export default {
+  props: {
+    slides: {
+      type: Array,
+      required: true,
+    }
+  },
   data() {
     return {
       currentIndex: 0,
-      slides: [
-        { image: 'https://placehold.co/600x300?text=Game+1', title: 'Epic Game 1' },
-        { image: 'https://placehold.co/600x300?text=Game+2', title: 'Awesome Game 2' },
-        { image: 'https://placehold.co/600x300?text=Game+3', title: 'Cool Game 3' },
-      ],
     }
   },
   methods: {

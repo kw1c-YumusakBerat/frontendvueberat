@@ -1,6 +1,6 @@
 <template>
   <section class="home-section">
-    <Slider />
+    <Slider :slides="gamesSlides" />
     <h2>Laatste Nieuws</h2>
     <div class="news-list">
       <NewsBlock v-for="(item, i) in news" :key="i" :news="item" />
@@ -11,6 +11,7 @@
 <script>
 import Slider from '../components/Slider.vue'
 import NewsBlock from '../components/NewsBlock.vue'
+import games from '../data/games'  // Importeer je games data
 
 export default {
   components: { Slider, NewsBlock },
@@ -23,6 +24,15 @@ export default {
       ],
     }
   },
+  computed: {
+    // Maak een array met objecten die Slider verwacht (image + title)
+    gamesSlides() {
+      return games.map(game => ({
+        image: game.url_img,
+        title: game.naam,
+      }))
+    }
+  }
 }
 </script>
 
@@ -50,7 +60,6 @@ h2 {
   gap: 1.2rem;
 }
 
-/* Mobiel: alles onder elkaar */
 @media (max-width: 768px) {
   .home-section {
     padding: 1rem;
