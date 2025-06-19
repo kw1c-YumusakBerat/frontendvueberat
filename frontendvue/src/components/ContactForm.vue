@@ -1,18 +1,34 @@
 <template>
-  <form @submit.prevent="submitForm" class="contact-form">
-    <label>
-      Naam:
-      <input type="text" v-model="name" required />
-    </label>
-    <label>
-      Email:
-      <input type="email" v-model="email" required />
-    </label>
-    <label>
-      Bericht:
-      <textarea v-model="message" required></textarea>
-    </label>
-    <button type="submit">Verzenden</button>
+  <form @submit.prevent="handleSubmit" class="contact-form" novalidate>
+    <label for="name">Naam</label>
+    <input
+      id="name"
+      v-model="form.name"
+      type="text"
+      required
+      placeholder="Jouw naam"
+    />
+
+    <label for="email">E-mail</label>
+    <input
+      id="email"
+      v-model="form.email"
+      type="email"
+      required
+      placeholder="jouw@email.com"
+    />
+
+    <label for="message">Bericht</label>
+    <textarea
+      id="message"
+      v-model="form.message"
+      rows="5"
+      required
+      placeholder="Typ hier je bericht"
+    ></textarea>
+
+    <button type="submit" :disabled="!isValid">Verstuur</button>
+    <p v-if="submitted" class="success-msg">Bedankt voor je bericht!</p>
   </form>
 </template>
 
@@ -20,21 +36,37 @@
 export default {
   data() {
     return {
-      name: '',
-      email: '',
-      message: '',
+      form: {
+        name: '',
+        email: '',
+        message: '',
+      },
+      submitted: false,
     }
   },
+  computed: {
+    isValid() {
+      return (
+        this.form.name.trim() !== '' &&
+        this.validateEmail(this.form.email) &&
+        this.form.message.trim() !== ''
+      )
+    },
+  },
   methods: {
-    submitForm() {
-      if (!this.name || !this.email || !this.message) {
-        alert('Vul alle velden in.')
-        return
+    validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      return re.test(email)
+    },
+    handleSubmit() {
+      if (this.isValid) {
+        this.submitted = true
+        // Hier kun je een API-call toevoegen om het bericht te versturen
+        this.form.name = ''
+        this.form.email = ''
+        this.form.message = ''
+        setTimeout(() => (this.submitted = false), 5000)
       }
-      alert(`Bedankt voor je bericht, ${this.name}!`)
-      this.name = ''
-      this.email = ''
-      this.message = ''
     },
   },
 }
@@ -44,23 +76,52 @@ export default {
 .contact-form {
   display: flex;
   flex-direction: column;
-  max-width: 400px;
-  margin: 0 auto;
-  label {
-    margin-bottom: 1rem;
-    input, textarea {
-      width: 100%;
-      padding: 0.5rem;
-      margin-top: 0.3rem;
-      border-radius: 4px;
-      border: 1px solid #555;
-      background: #333;
-      color: #eee;
-    }
-    textarea {
-      resize: vertical;
-      height: 100px;
-    }
-  }
+  gap: 1rem;
+}
+
+label {
+  font-weight: 600;
+  color: #24364c;
+}
+
+input,
+textarea {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #ff4d00;
+  outline: none;
+}
+
+button {
+  background-color: #ff4d00;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.7rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background-color: #e24300;
+}
+
+.success-msg {
+  color: green;
+  font-weight: 600;
+  text-align: center;
 }
 </style>
